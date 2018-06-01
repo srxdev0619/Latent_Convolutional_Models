@@ -9,7 +9,7 @@ Latent Convolutional Models work by parametrizing the latent space of a generato
 
 
 ![Img2](NormNet_Paper.png)
-*The Schematic of a Latent Convolutional Model. The smaller ConvNet $$f$$ (red) is unique to each image is parametrize the latent space of the generator $$g_{\theta}$$ (magenta) which is common to all images. The input $$s$$ is fixed to random noise and is not updated during the training process.*
+*The Schematic of a Latent Convolutional Model. The smaller ConvNet **f** (red) is unique to each image is parametrize the latent space of the generator **g_theta** (magenta) which is common to all images. The input **s** is fixed to random noise and is not updated during the training process.*
 
 
 ## Installation Dependencies
