@@ -28,7 +28,7 @@ RESTRICT = True
 L2_W = 0.0
 RESTRICT_VAL = 0.01
 fname = "train_LCM"
-NUM_TRAIN_SAMPLES = 50000
+NUM_TRAIN_SAMPLES = 150000
 
 LOG_DIR = '../runs/LCM_CelebA/'
 
@@ -40,8 +40,8 @@ if not os.path.exists(LATENT_CHECK_DIR):
             os.makedirs(LATENT_CHECK_DIR)
 
 PREV_EPOCH = None
-NUM_EPOCHS = 100000
-SAVE_EVERY = 5000
+NUM_EPOCHS = 150000
+SAVE_EVERY = 15000
 
 #The Generator Network
 G = EncDecCelebA(in_channels=64)
@@ -120,7 +120,7 @@ def trainZG(epoch, data_in, net_in, num_epochs=100):
                 net_in[i].restrict(-1.0*val, val)
     optim_nets.zero_grad()
     G_optimizer.zero_grad()
-    if epoch%1 == 0:
+    if epoch%10 == 0:
         G.eval()
         map_out_lst = []
         for i in range(BATCH_SIZE):
@@ -131,7 +131,7 @@ def trainZG(epoch, data_in, net_in, num_epochs=100):
         writer.add_scalar('Z_loss', loss.data.item(), epoch)
         writer.add_scalar('Z_loss_lap', lap_loss.data.item(), epoch)
         writer.add_scalar('Z_loss_MSE', mse_loss.data.item(), epoch)
-        if epoch%10 == 0:
+        if epoch%100 == 0:
             writer.add_image('Real_Images', data_in[:5].data.cpu(), epoch)
             writer.add_image('Generated_Images_Z', g_out[:5].data.cpu(), epoch)
             writer.add_image('latent_Z', map_out[:10,:3,:,:].data.cpu(), epoch)

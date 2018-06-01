@@ -5,12 +5,15 @@ import sys
 
 import numpy as np
 
+"""
+Got from the Deep Image Prior Repo: https://github.com/DmitryUlyanov/deep-image-prior
+"""
 
 
 
 
 def get_noise(input_depth, method, spatial_size, noise_type='u', var=1./10, batch_size=1):
-    """Returns a pytorch.Variable of size (1 x `input_depth` x `spatial_size[0]` x `spatial_size[1]`)
+    """Returns a tensor of size (1 x `input_depth` x `spatial_size[0]` x `spatial_size[1]`)
     initialized in a specific way.
     Args:
         input_depth: number of channels in the tensor

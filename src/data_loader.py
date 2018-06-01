@@ -11,6 +11,7 @@ from skimage.transform import resize
 import skimage.transform
 import time
 import os
+import warnings
 
 
 
@@ -22,7 +23,7 @@ class DataReader_Disk():
       latent ConvNet.
      """
 
-    def __init__(self, dataset_folder='./patched_data_512/',
+    def __init__(self, dataset_folder,
                  device=torch.device("cuda:0"),
                  img_size=64,
                  to_shuffle=False,
@@ -57,7 +58,7 @@ class DataReader_Disk():
             saved_model_name=None,
             num_load=None,
             same_seed=42,
-            latent_dir='./latent_nets_2/'):
+            latent_dir=None):
 
         """
           This method loads with each image name a corresponding network_id. This network_id is used to load and save the appropriate networks.
@@ -89,6 +90,10 @@ class DataReader_Disk():
             latent_net = getattr(lm, self.latent_net_name)()
             latent_net = latent_net.to(self.device)
             if num_epoch:
+                if saved_model_name is None:
+                    raise ValueError("\'saved_model_name\' must be specified when loading a saved model")
+                if latent_dir is None:
+                    raise ValueError("\'latent_dir\' must be specified when loading a saved model")
                 print("Num prev Loaded: ", self.num_samples)
                 latent_net.load_state_dict(torch.load(latent_dir + saved_model_name + "_latentnet_" + str(num_epoch) + '_' + str(self.num_samples)))
             torch.save(latent_net.state_dict(), self.temp_latent_dir + "temp_latent_net_" + str(self.num_samples))
@@ -170,21 +175,23 @@ class DataReader_Disk():
                     batch_size (int, optional): Batch size to be returned.
           """
         start = start
+        if start > self.num_samples:
+            raise ValueError("\'start\' cannot be greater than the number of samples in the dataset")
         end = min(start + batch_size, self.num_samples)
         eff_batch = end - start
         if end >= self.num_samples:
+            warnings.warn("Warning: End of dataset reached the batch-size will be smaller than what is specified")
             end = 0
-        data_out = None
-        latent_nets_ids = []
+        data_out_lst = []
+        latent_net_ids = []
         for i in range(eff_batch):
-            if data_out is None:
-                data_out = self.data_lst[start + i][0]
-            else:
-                data_out = torch.cat([data_out, self.data_lst[start + i][0]])
-
+            data_out_lst.append(self.data_lst[start + i][0])
             latent_net_ids.append(self.data_lst[start + i][1])
+
+        data_out = self.get_imgs(data_out_lst)
         latent_nets = self.get_nets(latent_net_ids)
-        return data_out, latent_nets, latent_nets_ids
+        data_out = data_out.to(self.device)
+        return data_out, latent_nets, latent_net_ids
 
     def update_state(self, latent_nets, latent_nets_ids):
         """
