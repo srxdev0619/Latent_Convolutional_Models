@@ -13,9 +13,10 @@ Latent Convolutional Models work by parametrizing the latent space of a generato
 
 
 ## Installation Dependencies
-	- numpy 1.14.3
-	- pytorch 0.4.0
-	- [tensorboard-pytorch](https://github.com/lanpa/tensorboard-pytorch)
+
+- numpy 1.14.3
+- pytorch 0.4.0
+- [tensorboard-pytorch](https://github.com/lanpa/tensorboard-pytorch)
 
 
 
