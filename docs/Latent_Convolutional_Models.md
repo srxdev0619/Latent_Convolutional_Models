@@ -1,4 +1,4 @@
-#Latent Convolutional Models
+# Latent Convolutional Models
 
 <p>
 <a href="http://shahrukhathar.github.io/" target="_blank">ShahRukh Athar</a>, 
