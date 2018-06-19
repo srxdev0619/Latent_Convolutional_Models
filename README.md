@@ -18,5 +18,11 @@ Latent Convolutional Models work by parametrizing the latent space of a generato
 - pytorch 0.4.0
 - [tensorboard-pytorch](https://github.com/lanpa/tensorboard-pytorch)
 
+# Additional Resources
+
+- [Webpage](http://shahrukhathar.github.io/2018/06/06/LCM.html)
+- [Paper](https://arxiv.org/abs/1806.06284)
+- [Supplementary Material](https://drive.google.com/file/d/1K3AceiLhxSPzVdu_-CtZQ7cZnKtxNPCY/view?usp=sharing)
+
 
 
