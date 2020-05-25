@@ -19,6 +19,17 @@ Latent Convolutional Models work by parametrizing the latent space of a generato
 - [tensorboard-pytorch](https://github.com/lanpa/tensorboard-pytorch)
 - [scikit-image](https://scikit-image.org/)
 
+# Citation
+To cite this work, please use
+```
+@INPROCEEDINGS{LCMAthar2019,
+  author = {ShahRukh Athar and Evgeny Burnaev and Victor Lempitsky},
+  title = {Latent Convolutional Models},
+  booktitle = {International Conference on Learning Representations (ICLR)},
+  year = {2019}
+}
+``` 
+
 # Additional Resources
 
 - [Webpage](http://shahrukhathar.github.io/2018/06/06/LCM.html)
